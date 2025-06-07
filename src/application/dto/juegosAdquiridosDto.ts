@@ -3,18 +3,18 @@ import { EstadoJuego } from "../../domain/models/valueObjects/estadoJuego";
 export interface CreateJuegoAdquiridoDto {
   idUsuario: string;
   nombre: string;
-  fechaCompra: string; // Formato ISO
+  fechaCompra: string; 
   estado: EstadoJuego;
   clave: string;
   tipo: string;
-  validez: string; // Formato ISO
+  validez: string; 
 }
 
 export interface JuegoAdquiridoResponseDto {
   idJuego: string;
   idUsuario: string;
   nombre: string;
-  fechaCompra: string; // Formato ISO
+  fechaCompra: string; 
   estado: EstadoJuego;
   visible: boolean;
   licenciaClave: string;

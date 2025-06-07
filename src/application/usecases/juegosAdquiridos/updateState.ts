@@ -14,18 +14,18 @@ export class UpdateStateUseCase {
       throw new Error("Juego no encontrado");
     }
     
-    // Utilizar el servicio de dominio para validar la transición
+
     if (!JuegosAdquiridosDomainService.validarTransicionEstado(juego.estado, dto.estado)) {
       throw new Error(`No se puede cambiar de ${juego.estado} a ${dto.estado}`);
     }
     
-    // Aplicar el cambio de estado usando el método de la entidad
+
     juego.cambiarEstado(dto.estado);
     
-    // Guardar los cambios
+   
     const juegoActualizado = await this.juegosAdquiridosRepository.update(juego);
     
-    // Mapear a DTO
+  
     return {
       idJuego: juegoActualizado.idJuego,
       idUsuario: juegoActualizado.idUsuario,

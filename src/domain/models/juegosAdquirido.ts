@@ -30,14 +30,14 @@ export class JuegosAdquirido {
     this._colecciones = [];
   }
 
-  // Getters
+
   get fechaCompra(): Date { return this._fechaCompra; }
   get estado(): EstadoJuego { return this._estado; }
   get licenciaClave(): string { return this._licenciaClave; }
   get visible(): boolean { return this._visible; }
   get colecciones(): ReadonlyArray<Coleccion> { return this._colecciones; }
 
-  // Métodos de dominio
+
   cambiarEstado(nuevoEstado: EstadoJuego): void {
     if (!this.puedeTransicionarA(nuevoEstado)) {
       throw new Error(`No se puede cambiar de ${this._estado} a ${nuevoEstado}`);
@@ -64,7 +64,7 @@ export class JuegosAdquirido {
   }
 
   private puedeTransicionarA(nuevoEstado: EstadoJuego): boolean {
-    // Reglas de negocio para transiciones de estado válidas
+
     if (this._estado === EstadoJuego.NO_INSTALADO && nuevoEstado === EstadoJuego.INSTALANDO) return true;
     if (this._estado === EstadoJuego.INSTALANDO && nuevoEstado === EstadoJuego.INSTALADO) return true;
     if (this._estado === EstadoJuego.INSTALADO && nuevoEstado === EstadoJuego.JUGANDO) return true;

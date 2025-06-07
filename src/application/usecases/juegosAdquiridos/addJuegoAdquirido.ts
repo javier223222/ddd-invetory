@@ -4,7 +4,6 @@ import { IJuegosAdquiridosRepository } from "../../../domain/repositories/IJuego
 import { ILicenciaRepository } from "../../../domain/repositories/ILincenciaRepository";
 import { CreateJuegoAdquiridoDto, JuegoAdquiridoResponseDto } from "../../dto/juegosAdquiridosDto";
 import { TipoLicencia } from "../../../domain/models/valueObjects/tipoLicencia";
-import { EstadoJuego } from "../../../domain/models/valueObjects/estadoJuego";
 
 export class AddJuegoAdquiridoUseCase {
   constructor(
@@ -13,10 +12,10 @@ export class AddJuegoAdquiridoUseCase {
   ) {}
 
   async execute(dto: CreateJuegoAdquiridoDto): Promise<JuegoAdquiridoResponseDto> {
-    // Verificar si la licencia ya existe
+  
     let licencia = await this.licenciaRepository.findByClave(dto.clave);
     
-    // Si no existe, la creamos
+    
     if (!licencia) {
       licencia = new Licencia(
         dto.clave,
@@ -25,7 +24,7 @@ export class AddJuegoAdquiridoUseCase {
       );
       await this.licenciaRepository.create(licencia);
     } else {
-      // Verificar si la licencia ya está asignada a este usuario
+
       const juegoExistente = await this.juegosAdquiridosRepository.findByLicencia(dto.clave, dto.idUsuario);
       
       if (juegoExistente) {
@@ -33,20 +32,20 @@ export class AddJuegoAdquiridoUseCase {
       }
     }
     
-    // Crear el juego adquirido
+
     const juegoAdquirido = new JuegosAdquirido(
-      "", // ID se generará en la persistencia
+      "", 
       dto.idUsuario,
       dto.nombre,
       new Date(dto.fechaCompra),
       dto.estado,
       dto.clave,
-      true // visible por defecto
+      true 
     );
     
     const juegoCreado = await this.juegosAdquiridosRepository.create(juegoAdquirido);
     
-    // Convertir a DTO para respuesta
+    
     return {
       idJuego: juegoCreado.idJuego,
       idUsuario: juegoCreado.idUsuario,

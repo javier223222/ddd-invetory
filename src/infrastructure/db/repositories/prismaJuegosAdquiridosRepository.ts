@@ -33,7 +33,7 @@ export class PrismaJuegosAdquiridosRepository implements IJuegosAdquiridosReposi
       this.prisma.juegosAdquirido.count({ where: whereClause })
     ]);
     
-    // Mapear a entidades de dominio
+    
     const juegosEntidades = juegos.map(juego => {
       const juegoEntidad = new JuegosAdquirido(
         juego.idJuego,
@@ -45,7 +45,7 @@ export class PrismaJuegosAdquiridosRepository implements IJuegosAdquiridosReposi
         juego.visible
       );
       
-      // Agregar colecciones si existen
+     
       if (juego.colecciones) {
         juego.colecciones.forEach(col => {
           const coleccion = new Coleccion(col.id, col.nombre, col.idUsuario);
@@ -96,7 +96,7 @@ export class PrismaJuegosAdquiridosRepository implements IJuegosAdquiridosReposi
       })
     ]);
     
-    // Mapear a entidades de dominio (similar a findByIdUsuario)
+
     const juegosEntidades = juegos.map(juego => {
       const juegoEntidad = new JuegosAdquirido(
         juego.idJuego,

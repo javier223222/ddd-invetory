@@ -26,7 +26,7 @@ export class GetJuegosAdquiridosUseCase {
       );
     }
 
-    // Mapear entidades de dominio a DTOs
+
     const juegosResponseDto: JuegoAdquiridoResponseDto[] = juegos.map(juego => ({
       idJuego: juego.idJuego,
       idUsuario: juego.idUsuario,
