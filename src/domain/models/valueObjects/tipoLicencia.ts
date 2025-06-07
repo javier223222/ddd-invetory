@@ -1,0 +1,6 @@
+export enum TipoLicencia {
+  PERSONAL = 'PERSONAL',
+  TRANSFERIBLE = 'TRANSFERIBLE',
+  TEMPORAL = 'TEMPORAL',
+  PERPETUA = 'PERPETUA'
+}
