@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+ 
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model coleccion{
+
+  id String @id @default(cuid()) @db.VarChar(300)
+  idUsuario String @db.VarChar(300)
+
+  nombre String @db.VarChar(300)
+  descripcion String? @db.VarChar(1000)
+  fechaCreacion DateTime @default(now())
+  juegos juegosEnColeccion[]
+
+}
+model juegosAdquirido{
+  
+  idJuego String @db.VarChar(300) @id @default(cuid()) 
+  idUsuario String @db.VarChar(300)
+  nombre String @db.VarChar(300)
+  fechaCompra DateTime @default(now())
+  estado String @db.VarChar(100) @default("Activo")
+  licenciaClave String @db.VarChar(300)
+  licencia licencia? @relation(fields: [licenciaClave], references: [clave])
+  colecciones juegosEnColeccion[]
+
+
+}
+
+model juegosEnColeccion{
+  id String @id @default(cuid()) @db.VarChar(300)
+  idJuego String @db.VarChar(300)
+  idColeccion String @db.VarChar(300)
+  fechaAdicion DateTime @default(now())
+  juegosAdquirido juegosAdquirido @relation(fields: [idJuego], references: [idJuego])
+  coleccion coleccion @relation(fields: [idColeccion], references: [id])
+
+  
+  
+}
+
+
+model licencia{
+  clave String @id @db.VarChar(300)
+  tipo String @db.VarChar(100) 
+  validez DateTime 
+  juegos juegosAdquirido[]
+}
